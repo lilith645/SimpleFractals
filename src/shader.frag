@@ -49,5 +49,26 @@ void main() {
         } else {
           color = vec4(1.0, 1.0, 1.0, 1.0);
         }
+    // julia fractals
+    } else if (fractal_type == 2) {
+      vec2 z = gl_FragCoord.xy / 767.0 * 4 - 2.0;
+      vec2 c;
+      c.x = -0.4;
+      c.y =  0.6;
+      
+      int max_iterations = 100;
+      for(int i = 0; i < max_iterations; ++i) {
+        z = vec2(pow(z.x, 2) - pow(z.y, 2), 2*z.x*z.y) +c;
+        if(length(z) > 2.0) {
+          break;
+        }
+        if(i == max_iterations) {
+            color = vec4(0.0, 0.0, 0.0, 1.0);
+        } else {
+            float val = i / float(max_iterations);
+            color = vec4(hsv2rbg(vec3(val, 1.0, 1.0)), 1.0);
+        }
+        
+      }
     }
 }

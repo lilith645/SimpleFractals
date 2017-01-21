@@ -61,7 +61,12 @@ fn main() {
   let mut zoom: f32 = 0.0;
   let mut offset: f32 = 2.001;
   let mut speed: f32 = 800.0;
-  let mut fractal_type: i32 = 0;
+  
+  // Fractal Type
+  // 0 - MandelbrotSet
+  // 1 - SierpinskiCarpet
+  // 2 - julia fractals
+  let mut fractal_type: i32 = 2;
   
   // start timer for delta time
   let mut last_time = Instant::now();
@@ -88,10 +93,10 @@ fn main() {
         Event::KeyboardInput(_, _, Some(VirtualKeyCode::S)) => offset-=(3.0 - speed/800.0)*delta_time,
         Event::KeyboardInput(_, _, Some(VirtualKeyCode::D)) => { zoom+=speed*delta_time; speed+=speed/800.0; },
         Event::KeyboardInput(_, _, Some(VirtualKeyCode::A)) => { zoom-=speed*delta_time; speed-=speed/800.0; },
-        Event::KeyboardInput(ElementState::Released, _,Some(VirtualKeyCode::C)) => { if fractal_type > 0 { 
-                                                                                       fractal_type = 0; 
+        Event::KeyboardInput(ElementState::Released, _,Some(VirtualKeyCode::C)) => { if fractal_type < 2 { 
+                                                                                       fractal_type+=1; 
                                                                                      } else {
-                                                                                       fractal_type = 1;
+                                                                                       fractal_type = 0;
                                                                                      }
                                                                                      zoom = 0.0;
                                                                                      offset = 2.001;
